@@ -1,6 +1,6 @@
 import { NavLink } from "../types"
 
-export default function NavBar(ctx: CanvasRenderingContext2D, cx: number, cy: number): NavLink[] {
+export default function NavBar(ctx: CanvasRenderingContext2D, cx: number, cy: number, currentPage: string, hovered: string): NavLink[] {
     const w = 500
     const h = 60
     const x = cx - (w / 2)
@@ -9,6 +9,8 @@ export default function NavBar(ctx: CanvasRenderingContext2D, cx: number, cy: nu
     ctx.fillStyle = "white"
     ctx.lineCap = "round"
     ctx.lineJoin = "round"
+    ctx.shadowBlur = 20
+    ctx.shadowColor = "#e3e1e1"
     ctx.beginPath()
     ctx.moveTo(x, cy + radiusSize)
     ctx.quadraticCurveTo(x, cy, x + radiusSize, cy)
@@ -20,7 +22,6 @@ export default function NavBar(ctx: CanvasRenderingContext2D, cx: number, cy: nu
     ctx.quadraticCurveTo(x, cy + h, x, cy + h - radiusSize)
     ctx.closePath()
     ctx.fill()
-    ctx.stroke()
     ctx.restore()
     ctx.save()
     ctx.fillStyle = "black"
@@ -29,8 +30,20 @@ export default function NavBar(ctx: CanvasRenderingContext2D, cx: number, cy: nu
     const bound = w / pages.length
     const arr: NavLink[] = []
     pages.forEach((page, ind) => {
-        arr.push({ id: page, x: x + bound * ind + 20, y: cy + h / 2, w: ctx.measureText(page).width, h: 18 })
-        ctx.fillText(page, x + bound * ind + 20, cy + h / 2 + 9)
+        arr.push({ id: page, x: x + bound * ind + 20 - 10, y: cy + h / 2 - 10, w: ctx.measureText(page).width + 10, h: 18 + 10 })
+        if (currentPage === page) {
+            ctx.save()
+            ctx.fillStyle = "blue"
+            ctx.fillText(page, x + bound * ind + 20, cy + h / 2 + 9)
+            ctx.restore()
+        } else if (page === hovered) {
+            ctx.save()
+            ctx.fillStyle = "red"
+            ctx.fillText(page, x + bound * ind + 20, cy + h / 2 + 9)
+            ctx.restore()
+        } else {
+            ctx.fillText(page, x + bound * ind + 20, cy + h / 2 + 9)
+        }
     })
     ctx.restore()
     return arr

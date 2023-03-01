@@ -6,6 +6,8 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [navPos, setNavPos] = useState<NavLink[]>([])
   const [cursor, setCursor] = useState("auto")
+  const [hovered, setHovered] = useState("")
+  const [currentPage, setCurrentPage] = useState("About")
 
   useLayoutEffect(() => {
     let ctx = canvasRef.current!.getContext("2d")!;
@@ -15,11 +17,11 @@ function App() {
 
   useEffect(() => {
     if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext("2d")
-      setNavPos(NavBar(ctx!, window.innerWidth / 2, window.innerHeight - 100))
+      const ctx = canvasRef.current.getContext("2d")!
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+      setNavPos(NavBar(ctx, window.innerWidth / 2, window.innerHeight - 100, currentPage, hovered))
     }
-
-  }, [])
+  }, [hovered, currentPage])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     let px = e.pageX as number
@@ -28,14 +30,32 @@ function App() {
     for (let n of navPos) {
       if (isPointInsidePolygon(px, py, { x: n.x, y: n.y }, { x: n.x + n.w, y: n.y }, { x: n.x + n.w, y: n.y + n.h }, { x: n.x, y: n.y + n.h })) {
         setCursor("pointer")
+        setHovered(n.id)
         return
       }
+      setHovered("")
       setCursor("default")
     }
   }
 
+  function handleClick(e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) {
+    let px = e.pageX as number
+    let py = e.pageY as number
+    for (let n of navPos) {
+      if (isPointInsidePolygon(px, py, { x: n.x, y: n.y }, { x: n.x + n.w, y: n.y }, { x: n.x + n.w, y: n.y + n.h }, { x: n.x, y: n.y + n.h })) {
+        setCursor("pointer")
+        var link = document.createElement('a');
+        link.href = `#${n.id}`;
+        document.body.appendChild(link);
+        link.click();
+        setCurrentPage(n.id)
+        return
+      }
+    }
+  }
+
   return (
-    <canvas ref={canvasRef} onMouseMove={handleMouseMove} style={{ cursor }}>
+    <canvas ref={canvasRef} onClick={handleClick} onMouseMove={handleMouseMove} style={{ cursor }}>
     </canvas>
   )
 }
