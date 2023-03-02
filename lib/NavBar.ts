@@ -1,6 +1,8 @@
 import { NavLink } from "../types"
 
-export default function NavBar(ctx: CanvasRenderingContext2D, cx: number, cy: number, currentPage: string, hovered: string): NavLink[] {
+export default function NavBar(ctx: CanvasRenderingContext2D, currentPage: string, hovered: string): NavLink[] {
+    const cx = window.innerWidth / 2
+    const cy = window.innerHeight - 100
     const w = 500
     const h = 60
     const x = cx - (w / 2)
