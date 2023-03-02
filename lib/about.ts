@@ -1,6 +1,7 @@
+import { Links } from "../types"
 import { clamp } from "./utils"
 
-export function about(ctx: CanvasRenderingContext2D) {
+export function about(ctx: CanvasRenderingContext2D): Links[] {
     ctx.save()
     const hi = "Hi, I'm "
     const name = "Yussif 'Dawkaka' Mohammed"
@@ -29,24 +30,31 @@ export function about(ctx: CanvasRenderingContext2D) {
         ctx.fillText(w, totalW, h)
         totalW += wordLen
     }
+    const imgSize = 50
 
     const image = new Image();
     image.src = "./github.jpg";
     h += padding + 20
     image.onload = function (e) {
-        ctx.drawImage(image, bioX + 0, h, 50, 50);
+        ctx.drawImage(image, bioX + 0, h, imgSize, imgSize);
     };
     const image2 = new Image()
     image2.src = "./linkedin.png";
     image2.onload = function () {
-        ctx.drawImage(image2, bioX + 70, h, 50, 50);
+        ctx.drawImage(image2, bioX + imgSize + 20, h, imgSize, imgSize);
     };
     const image3 = new Image(); // Using optional size for image
     image3.src = "./dev.png";
     image3.onload = function (e) {
-        ctx.drawImage(image3, bioX + 140, h, 50, 50);
+        ctx.drawImage(image3, bioX + imgSize * 2 + 40, h, imgSize, imgSize);
     };
+    const links: Links[] = [
+        { href: "https://github.com/dawkaka", x: bioX + 0, y: h, w: imgSize, h: imgSize },
+        { href: "https://www.linkedin.com/in/yussif-mohammed/", x: bioX + imgSize + 20, y: h, w: imgSize, h: imgSize },
+        { href: "https://dev.to/dawkaka", x: bioX + imgSize * 2 + 40, y: h, w: imgSize, h: imgSize }
+    ]
     ctx.restore()
+    return links
 }
 
 
@@ -199,7 +207,7 @@ export function writeName(ctx: CanvasRenderingContext2D) {
 
 }
 
-export default function About(ctx: CanvasRenderingContext2D) {
+export default function About(ctx: CanvasRenderingContext2D): Links[] {
     writeName(ctx)
-    about(ctx)
+    return about(ctx)
 }

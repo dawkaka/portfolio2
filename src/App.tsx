@@ -2,10 +2,11 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import NavBar from '../lib/NavBar'
 import { isPointInsidePolygon } from '../lib/utils'
 import About from "../lib/about"
-import { NavLink } from "../types"
+import { Links, NavLink } from "../types"
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [navPos, setNavPos] = useState<NavLink[]>([])
+  const [links, setLinks] = useState<Links[]>([])
   const [cursor, setCursor] = useState("auto")
   const [hovered, setHovered] = useState("")
   const [currentPage, setCurrentPage] = useState("About")
@@ -20,7 +21,7 @@ function App() {
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext("2d")!
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-      About(ctx)
+      setLinks(About(ctx))
       setNavPos(NavBar(ctx, currentPage, hovered))
 
     }
@@ -39,6 +40,17 @@ function App() {
       setHovered("")
       setCursor("default")
     }
+
+    for (let n of links) {
+      if (isPointInsidePolygon(px, py, { x: n.x, y: n.y }, { x: n.x + n.w, y: n.y }, { x: n.x + n.w, y: n.y + n.h }, { x: n.x, y: n.y + n.h })) {
+        setCursor("pointer")
+        setHovered(n.href)
+        return
+      }
+      setHovered("")
+      setCursor("default")
+    }
+
   }
 
   function handleClick(e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) {
@@ -53,6 +65,19 @@ function App() {
         link.click();
         document.body.removeChild(link)
         setCurrentPage(n.id)
+        return
+      }
+    }
+
+    for (let n of links) {
+      if (isPointInsidePolygon(px, py, { x: n.x, y: n.y }, { x: n.x + n.w, y: n.y }, { x: n.x + n.w, y: n.y + n.h }, { x: n.x, y: n.y + n.h })) {
+        setCursor("pointer")
+        var link = document.createElement('a');
+        link.href = `${n.href}`;
+        link.target = "_blank"
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link)
         return
       }
     }
