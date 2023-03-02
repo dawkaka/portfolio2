@@ -4,10 +4,11 @@ export function about(ctx: CanvasRenderingContext2D) {
     ctx.save()
     const hi = "Hi, I'm "
     const name = "Yussif 'Dawkaka' Mohammed"
-    const bio = `. A determined pessimist and a Software Engineer who is 'very' passionate about programming with over 3 years of experience building projects 
-ranging from pet projects to startups. I have experience building both backend and frontend of applications and on one occassion a mobile app using React Native.`
-    const maxWidth = clamp(300, window.innerWidth / 2 - 20, 700)
-    ctx.translate(window.innerWidth / 2, 120)
+    const bio = `. A determined pessimist and a Software Engineer who is 'very' passionate about programming with over 3 years of experience building projects ranging from pet projects to startups. I have experience building both backend and frontend of applications and on one occassion a mobile app using React Native.`
+    const bioX = window.innerWidth / 2
+    const padding = 120
+    const maxWidth = clamp(300, bioX - 20, 700)
+    ctx.translate(bioX, padding)
     ctx.font = "16px sans"
     ctx.fillText(hi, 0, 0)
     ctx.save()
@@ -29,8 +30,27 @@ ranging from pet projects to startups. I have experience building both backend a
         totalW += wordLen
     }
 
+    const image = new Image();
+    image.src = "./github.jpg";
+    h += padding + 20
+    image.onload = function (e) {
+        ctx.drawImage(image, bioX + 0, h, 50, 50);
+    };
+    const image2 = new Image()
+    image2.src = "./linkedin.png";
+    image2.onload = function () {
+        ctx.drawImage(image2, bioX + 70, h, 50, 50);
+    };
+    const image3 = new Image(); // Using optional size for image
+    image3.src = "./dev.png";
+    image3.onload = function (e) {
+        ctx.drawImage(image3, bioX + 140, h, 50, 50);
+    };
     ctx.restore()
 }
+
+
+
 
 export function writeName(ctx: CanvasRenderingContext2D) {
     const spacing = 80

@@ -59,7 +59,7 @@ function App() {
   }
 
   return (
-    <canvas ref={canvasRef} onClick={handleClick} onMouseMove={handleMouseMove} style={{ cursor, backgroundColor: "#fcf5eb" }}>
+    <canvas ref={canvasRef} onClick={handleClick} onMouseMove={handleMouseMove} style={{ cursor, backgroundColor: "" }}>
     </canvas>
   )
 }

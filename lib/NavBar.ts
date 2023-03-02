@@ -1,9 +1,10 @@
 import { NavLink } from "../types"
+import { clamp } from "./utils"
 
 export default function NavBar(ctx: CanvasRenderingContext2D, currentPage: string, hovered: string): NavLink[] {
     const cx = window.innerWidth / 2
     const cy = window.innerHeight - 100
-    const w = 800
+    const w = clamp(300, window.innerWidth - 40, 800)
     const h = 60
     const x = cx - (w / 2)
     const radiusSize = h / 2 - 10
