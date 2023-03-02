@@ -26,3 +26,7 @@ export function isPointInsidePolygon(cx: number, cy: number, p1: Point, p2: Poin
     }
     return intersections % 2 != 0;
 }
+
+export function clamp(min: number, val: number, max: number): number {
+    return min > val ? min : max < val ? max : val
+}
