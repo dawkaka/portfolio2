@@ -21,9 +21,14 @@ function App() {
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext("2d")!
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-      setLinks(About(ctx))
+      switch (currentPage) {
+        case "About" || "":
+          setLinks(About(ctx))
+          break;
+        default:
+          break;
+      }
       setNavPos(NavBar(ctx, currentPage, hovered))
-
     }
   }, [hovered, currentPage])
 

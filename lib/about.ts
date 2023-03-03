@@ -30,7 +30,7 @@ export function about(ctx: CanvasRenderingContext2D): Links[] {
         ctx.fillText(w, totalW, h)
         totalW += wordLen
     }
-    const imgSize = 50
+    const imgSize = 30
 
     const image = new Image();
     image.src = "./github.jpg";
