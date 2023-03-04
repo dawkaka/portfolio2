@@ -18,7 +18,7 @@ export function intro(ctx: CanvasRenderingContext2D) {
     const inArr = intro.split(" ")
     let prv = 0
     let words = ""
-    console.log(inArr)
+
     for (let i = 0; i < inArr.length; i++) {
         const w = inArr[i]
         const wordLen = ctx.measureText(words + w + " ").width
@@ -32,15 +32,13 @@ export function intro(ctx: CanvasRenderingContext2D) {
     }
     lines.push(words)
     lines.forEach((line, ind) => {
-        console.log(line)
         const x = (width - ctx.measureText(line).width) / 2
         ctx.fillText(line, introX + x, padding + (ind * 25))
-
     })
     ctx.restore()
     ctx.save()
-    ctx.translate(window.innerWidth / 2, 400)
-    let radius = 70
+    ctx.translate(window.innerWidth / 2, padding + (lines.length * 25) + 175)
+    let radius = 60
     let ang;
     let num;
     let skills = ["", "React", "Typescript", "Go", "Mongo"]
@@ -51,17 +49,17 @@ export function intro(ctx: CanvasRenderingContext2D) {
         ctx.rotate(ang);
         ctx.translate(0, -radius);
         ctx.rotate(-ang);
-        ctx.ellipse(25, 25, 50, 50, 0, 0, 360)
+        ctx.ellipse(0, 25, 40, 40, 0, 0, 360)
         ctx.closePath()
         ctx.fill()
         ctx.font = "bold 16px sans"
         ctx.fillStyle = "white"
         const x = (100 - ctx.measureText(skills[num]).width) / 2
-        ctx.fillText(skills[num], -25 + x, 50 - 16)
+        ctx.fillText(skills[num], -50 + x, 50 - 16)
         ctx.restore()
     }
 
-    radius = 170
+    radius = 150
     skills = ["", "NextJS", "Git", "Postgresql", "AWS", "NodeJS", "Prisma", "Graphql", "GSAP", "RabbitMQ", "Ten"]
     for (num = 1; num < 11; num++) {
         ang = num * Math.PI / 5;
@@ -70,13 +68,13 @@ export function intro(ctx: CanvasRenderingContext2D) {
         ctx.rotate(ang);
         ctx.translate(0, -radius);
         ctx.rotate(-ang);
-        ctx.ellipse(25, 25, 40, 40, 0, 0, 360)
+        ctx.ellipse(0, 25, 40, 40, 0, 0, 360)
         ctx.closePath()
         ctx.fill()
         ctx.font = "bold 14px sans"
         ctx.fillStyle = "white"
         const x = (100 - ctx.measureText(skills[num]).width) / 2
-        ctx.fillText(skills[num], -25 + x, 50 - 16)
+        ctx.fillText(skills[num], -50 + x, 50 - 16)
         ctx.restore()
     }
     ctx.restore()

@@ -3,6 +3,7 @@ import NavBar from '../lib/NavBar'
 import { isPointInsidePolygon } from '../lib/utils'
 import about from "../lib/about"
 import skills from "../lib/skills"
+import projects from "../lib/projects"
 import { Links, NavLink } from "../types"
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -28,6 +29,9 @@ function App() {
           break;
         case "Skills":
           skills(ctx)
+          break;
+        case "Projects":
+          projects(ctx)
           break;
         default:
           setLinks(about(ctx))

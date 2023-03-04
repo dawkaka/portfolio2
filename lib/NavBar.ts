@@ -29,7 +29,7 @@ export default function NavBar(ctx: CanvasRenderingContext2D, currentPage: strin
     ctx.save()
     ctx.fillStyle = "black"
     ctx.font = "18px sans"
-    const pages: NavLink[`id`][] = ["About", "Skills", "Projects", "Education"]
+    const pages: NavLink[`id`][] = ["About", "Skills", "Projects"]
     const bound = w / pages.length
     const arr: NavLink[] = []
     pages.forEach((page, ind) => {
