@@ -14,16 +14,29 @@ export function intro(ctx: CanvasRenderingContext2D) {
     let totalW = introX
     let h = padding
     ctx.font = "16px sans"
-    for (let w of intro.split(" ")) {
-        const wordLen = ctx.measureText(w + " ").width
+    const lines = []
+    const inArr = intro.split(" ")
+    let prv = 0
+    let words = ""
+    console.log(inArr)
+    for (let i = 0; i < inArr.length; i++) {
+        const w = inArr[i]
+        const wordLen = ctx.measureText(words + w + " ").width
         if (totalW + wordLen > (width + introX)) {
-            totalW = introX
-            h += 25
+            lines.push(words)
+            prv = i
+            words = ""
+        } else {
+            words += " " + w
         }
-        ctx.fillText(w, totalW, h)
-        totalW += wordLen
     }
+    lines.push(words)
+    lines.forEach((line, ind) => {
+        console.log(line)
+        const x = (width - ctx.measureText(line).width) / 2
+        ctx.fillText(line, introX + x, padding + (ind * 25))
 
+    })
     ctx.restore()
     ctx.save()
     ctx.translate(window.innerWidth / 2, 400)
