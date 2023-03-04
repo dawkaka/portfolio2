@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import NavBar from '../lib/NavBar'
 import { isPointInsidePolygon } from '../lib/utils'
-import About from "../lib/about"
+import about from "../lib/about"
+import skills from "../lib/skills"
 import { Links, NavLink } from "../types"
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -22,10 +23,14 @@ function App() {
       const ctx = canvasRef.current.getContext("2d")!
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
       switch (currentPage) {
-        case "About" || "":
-          setLinks(About(ctx))
+        case "About":
+          setLinks(about(ctx))
+          break;
+        case "Skills":
+          skills(ctx)
           break;
         default:
+          setLinks(about(ctx))
           break;
       }
       setNavPos(NavBar(ctx, currentPage, hovered))
