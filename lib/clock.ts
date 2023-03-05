@@ -1,12 +1,11 @@
 
-
 export default function drawClock(page: string) {
     if (page !== "About") return
     var canvas = document.getElementById("canvas")! as HTMLCanvasElement;
     var ctx = canvas.getContext("2d")!;
     var radius = 100;
     ctx.save()
-    ctx.translate(50 + radius, 400 + radius);
+    ctx.translate(window.innerWidth < 600 ? window.innerWidth / 2 : 50 + radius, window.innerWidth < 600 ? window.innerHeight - 50 - radius * 2 : 250 + radius);
     radius = radius * 0.90
     ctx.clearRect(-radius - 10, -radius - 10, 210, 210)
     drawFace(ctx, radius);

@@ -6,9 +6,12 @@ export function about(ctx: CanvasRenderingContext2D): Links[] {
     const hi = "Hi, I'm "
     const name = "Yussif 'Dawkaka' Mohammed"
     const bio = `. A determined pessimist and a Software Engineer who is 'very' passionate about programming with over 3 years of experience building projects ranging from pet projects to startups. I have experience building both backend and frontend of applications and on one occassion a mobile app using React Native.`
-    const bioX = window.innerWidth / 2
-    const padding = 120
-    const maxWidth = clamp(300, bioX - 20, 700)
+    const innerWidth = window.innerWidth
+    const isSmall = innerWidth < 600
+
+    const bioX = isSmall ? 20 : window.innerWidth / 2
+    const padding = isSmall ? 150 : 120
+    const maxWidth = isSmall ? window.innerWidth - 20 : clamp(300, bioX - 20, 700)
     ctx.translate(bioX, padding)
     ctx.font = "16px sans"
     ctx.fillText(hi, 0, 0)
@@ -61,14 +64,18 @@ export function about(ctx: CanvasRenderingContext2D): Links[] {
 
 
 export function writeName(ctx: CanvasRenderingContext2D) {
-    const spacing = 80
-    const gap = 40
-    const lineWidth = 10
+    const innerWidth = window.innerWidth
+    const isSmall = innerWidth < 600
+    const spacing = isSmall ? window.innerWidth / 22 : 0.1 * (window.innerWidth / 2)
+    const gap = spacing / 2
+
+
+    const lineWidth = window.innerWidth > 680 ? 10 : 5
     ctx.save()
     ctx.fillStyle = "white"
     ctx.lineWidth = lineWidth
     ctx.lineCap = "round"
-    ctx.translate(20, 100)
+    ctx.translate(20, 50)
     ctx.beginPath()
 
     //Y
@@ -126,9 +133,9 @@ export function writeName(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "white"
     ctx.lineWidth = lineWidth
     ctx.lineCap = "round"
-    ctx.translate(window.innerWidth - (spacing * 8 + gap * 10 + 20), window.innerHeight - (spacing * 2 + 200))
+    ctx.translate(innerWidth > 680 ? innerWidth - (spacing * 8 + gap * 10 + 20) : isSmall ? spacing2 + gap * 4 : innerWidth - (spacing * 8 + gap * 10),
+        isSmall ? 50 : window.innerHeight - (spacing * 2 + 200))
     spacing2 = spacing
-
     ctx.moveTo(spacing2, 0)
     ctx.lineTo(spacing2, spacing * 2)
     ctx.moveTo(spacing2, 0)
