@@ -5,6 +5,8 @@ import about from "../lib/about"
 import skills from "../lib/skills"
 import projects from "../lib/projects"
 import { Links, NavLink } from "../types"
+import drawClock from "../lib/clock"
+
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [navPos, setNavPos] = useState<NavLink[]>([])
@@ -12,7 +14,7 @@ function App() {
   const [cursor, setCursor] = useState("auto")
   const [hovered, setHovered] = useState("")
   const [currentPage, setCurrentPage] = useState("About")
-
+  const intervalRef = useRef<number>()
   useLayoutEffect(() => {
     let ctx = canvasRef.current!.getContext("2d")!;
     ctx.canvas.width = window.innerWidth
@@ -26,6 +28,9 @@ function App() {
       switch (currentPage) {
         case "About":
           setLinks(about(ctx))
+          intervalRef.current = setInterval(() => {
+            drawClock(currentPage)
+          }, 1000)
           break;
         case "Skills":
           skills(ctx)
@@ -37,7 +42,11 @@ function App() {
           setLinks(about(ctx))
           break;
       }
+
       setNavPos(NavBar(ctx, currentPage, hovered))
+    }
+    return () => {
+      clearInterval(intervalRef.current)
     }
   }, [hovered, currentPage])
 
@@ -98,7 +107,7 @@ function App() {
   }
 
   return (
-    <canvas ref={canvasRef} onClick={handleClick} onMouseMove={handleMouseMove} style={{ cursor, backgroundColor: "" }}>
+    <canvas id="canvas" ref={canvasRef} onClick={handleClick} onMouseMove={handleMouseMove} style={{ cursor, backgroundColor: "" }}>
     </canvas>
   )
 }
