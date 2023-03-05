@@ -7,7 +7,7 @@ export default function skills(ctx: CanvasRenderingContext2D) {
 
 export function intro(ctx: CanvasRenderingContext2D) {
     ctx.save()
-    const intro = "Over the years I've worked with a lot of technologies programming languages and frameworks the circle below represent the ones I use most often. The bigger the circle the higher my proficiency in that technology"
+    const intro = "Over the years I've worked with a lot of technologies, programming languages, and frameworks the circle below represent the ones I use most often"
     const width = Math.min(window.innerWidth - 40, 700)
     const introX = (window.innerWidth - width) / 2
     const padding = 50
