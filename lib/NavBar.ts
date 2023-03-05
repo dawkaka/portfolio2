@@ -33,19 +33,20 @@ export default function NavBar(ctx: CanvasRenderingContext2D, currentPage: strin
     const bound = w / pages.length
     const arr: NavLink[] = []
     pages.forEach((page, ind) => {
-        arr.push({ id: page, x: x + bound * ind + 20 - 10, y: cy + h / 2 - 10, w: ctx.measureText(page).width + 10, h: 18 + 10 })
+        let mid = (bound - ctx.measureText(page).width) / 2
+        arr.push({ id: page, x: x + bound * ind + mid - 10, y: cy + h / 2 - 10, w: ctx.measureText(page).width + 10, h: 18 + 10 })
         if (currentPage === page) {
             ctx.save()
             ctx.fillStyle = "blue"
-            ctx.fillText(page, x + bound * ind + 20, cy + h / 2 + 9)
+            ctx.fillText(page, x + bound * ind + mid, cy + h / 2 + 9)
             ctx.restore()
         } else if (page === hovered) {
             ctx.save()
             ctx.fillStyle = "red"
-            ctx.fillText(page, x + bound * ind + 20, cy + h / 2 + 9)
+            ctx.fillText(page, x + bound * ind + mid, cy + h / 2 + 9)
             ctx.restore()
         } else {
-            ctx.fillText(page, x + bound * ind + 20, cy + h / 2 + 9)
+            ctx.fillText(page, x + bound * ind + mid, cy + h / 2 + 9)
         }
     })
     ctx.restore()
