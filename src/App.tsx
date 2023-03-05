@@ -50,6 +50,11 @@ function App() {
     }
   }, [hovered, currentPage])
 
+  useEffect(() => {
+    const tag = window.location.hash
+    setCurrentPage(tag.substring(1))
+  }, [])
+
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     let px = e.pageX as number
     let py = e.pageY as number

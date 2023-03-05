@@ -39,7 +39,7 @@ export function intro(ctx: CanvasRenderingContext2D) {
     let radius = 60
     let ang;
     let num;
-    let skills = ["", "React", "Typescript", "Go", "Mongo"]
+    let skills = ["", "React", "Typescript", "Go", "MongoDB"]
     for (num = 1; num < 5; num++) {
         ang = num * Math.PI / 2;
         ctx.save()
@@ -58,7 +58,7 @@ export function intro(ctx: CanvasRenderingContext2D) {
     }
 
     radius = 150
-    skills = ["", "NextJS", "Git", "Postgresql", "AWS", "NodeJS", "Prisma", "Graphql", "GSAP", "RabbitMQ", "Ten"]
+    skills = ["", "NextJS", "Git", "Postgresql", "AWS", "NodeJS", "Prisma", "Graphql", "Docker", "NginX", "Redis"]
     for (num = 1; num < 11; num++) {
         ang = num * Math.PI / 5;
         ctx.save()
