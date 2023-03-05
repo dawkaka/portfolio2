@@ -31,7 +31,7 @@ function App() {
           skills(ctx)
           break;
         case "Projects":
-          projects(ctx)
+          setLinks(projects(ctx))
           break;
         default:
           setLinks(about(ctx))

@@ -7,7 +7,7 @@ export interface NavLink {
 }
 
 export interface Links extends Omit<NavLink, "id"> {
-    href: "https://github.com/dawkaka" | "https://www.linkedin.com/in/yussif-mohammed/" | "https://dev.to/dawkaka",
+    href: string
 }
 
 export interface Point {

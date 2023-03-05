@@ -16,7 +16,6 @@ export function intro(ctx: CanvasRenderingContext2D) {
     ctx.font = "16px sans"
     const lines = []
     const inArr = intro.split(" ")
-    let prv = 0
     let words = ""
 
     for (let i = 0; i < inArr.length; i++) {
@@ -24,8 +23,7 @@ export function intro(ctx: CanvasRenderingContext2D) {
         const wordLen = ctx.measureText(words + w + " ").width
         if (totalW + wordLen > (width + introX)) {
             lines.push(words)
-            prv = i
-            words = ""
+            words = w
         } else {
             words += " " + w
         }
